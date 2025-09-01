@@ -1,0 +1,55 @@
+{% comment %}
+  Barakah Bazaar – Shop by Category
+  Displays heritage-aligned categories with images and links to collections.
+{% endcomment %}
+
+<div class="shop-by-category">
+  <h2 class="section-title">Shop by Category</h2>
+  <div class="category-grid">
+    {% assign categories = 
+      "Dates & Dried Fruits|dates-and-dried-fruits,
+       Honey & Bee Products|honey-and-bee-products,
+       Spices & Aromatics|spices-and-aromatics,
+       Incense Resins & Gums|incense-resins-and-gums,
+       Perfume Oils & Oud|perfume-oils-and-oud,
+       Oils & Staples|oils-and-staples,
+       Natural Care & Sunnah Items|natural-care-and-sunnah-items,
+       Leather Goods & Simple Textiles|leather-and-textiles" | split: "," 
+    %}
+
+    {% for cat in categories %}
+      {% assign parts = cat | strip | split: "|" %}
+      {% assign cat_name = parts[0] %}
+      {% assign cat_handle = parts[1] %}
+      <div class="category-card">
+        <a href="{{ routes.collections_url }}/{{ cat_handle | strip }}">
+          <div class="category-image">
+            {%- comment -%}
+              Replace with actual collection image or a placeholder
+            {%- endcomment -%}
+            <img src="{{ 'placeholder.jpg' | asset_url }}" alt="{{ cat_name }}">
+          </div>
+          <h3>{{ cat_name }}</h3>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+.shop-by-category {
+  padding: 2rem 0;
+}
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+.category-card {
+  text-align: center;
+}
+.category-card img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+</style>

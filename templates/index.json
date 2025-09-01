@@ -1,12 +1,16 @@
 {
   "sections": {
-    "main": {
+    "hero": {
       "type": "hero",
-      "settings": {
-        "heading": "Welcome to Barakah Bazaar",
-        "subheading": "Heritage goods, ethically sourced"
-      }
+      "settings": { }
+    },
+    "shop-by-category": {
+      "type": "categories",
+      "settings": { }
     }
   },
-  "order": ["main"]
+  "order": [
+    "hero",
+    "shop-by-category"
+  ]
 }
