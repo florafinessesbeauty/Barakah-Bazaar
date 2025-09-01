@@ -1,0 +1,22 @@
+<a class="card" href="{{ product.url }}">
+  {% if product.featured_image %}
+    <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title | escape }}">
+  {% endif %}
+  <div class="card__body">
+    <div class="card__title">{{ product.title }}</div>
+    <div class="price">
+      {% if product.compare_at_price_max > product.price %}
+        <span style="color:#c0392b; margin-right:.35rem">{{ product.price | money }}</span>
+        <s style="color:#777">{{ product.compare_at_price_max | money }}</s>
+      {% else %}
+        {{ product.price | money }}
+      {% endif %}
+    </div>
+
+    {% if product.metafields.custom.heritage_note != blank %}
+      <div style="margin-top:.5rem;color:#666;font-size:.9rem">
+        {{ product.metafields.custom.heritage_note | truncate: 90 }}
+      </div>
+    {% endif %}
+  </div>
+</a>

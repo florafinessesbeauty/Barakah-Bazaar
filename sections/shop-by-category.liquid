@@ -1,0 +1,59 @@
+{% schema %}
+{
+  "name": "Shop by category",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by category" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "image_picker", "id": "image", "label": "Custom image (optional)" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Shop by category",
+      "blocks": [
+        { "type": "category" }, { "type": "category" }, { "type": "category" },
+        { "type": "category" }, { "type": "category" }, { "type": "category" },
+        { "type": "category" }, { "type": "category" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<section class="category-tiles">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <h2 style="margin:0 0 1rem">{{ section.settings.heading }}</h2>
+    {% endif %}
+    <div class="grid grid--4">
+      {% for block in section.blocks %}
+        {% assign col = collections[block.settings.collection] %}
+        {% if col %}
+          <a class="tile" href="{{ col.url }}" {{ block.shopify_attributes }}>
+            {% if block.settings.image %}
+              <img src="{{ block.settings.image | image_url: width: 900 }}" alt="{{ col.title | escape }}">
+            {% elsif col.image %}
+              <img src="{{ col.image | image_url: width: 900 }}" alt="{{ col.title | escape }}">
+            {% elsif col.products.first.featured_image %}
+              <img src="{{ col.products.first.featured_image | image_url: width: 900 }}" alt="{{ col.title | escape }}">
+            {% endif %}
+            <div class="tile__body">
+              <div class="tile__title">{{ col.title }}</div>
+              {% if col.all_products_count > 0 %}
+                <div style="color:#666">{{ col.all_products_count }} products</div>
+              {% endif %}
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

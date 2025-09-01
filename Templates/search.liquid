@@ -1,0 +1,15 @@
+{% layout 'theme' %}
+<section class="page-width">
+  <h1>Search Results</h1>
+  {% if search.results_count > 0 %}
+    <ul>
+      {% for item in search.results %}
+        <li>
+          <a href="{{ item.url }}">{{ item.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No results found for "{{ search.terms }}".</p>
+  {% endif %}
+</section>

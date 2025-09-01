@@ -1,0 +1,42 @@
+<section class="section">
+  <div class="container">
+    <h1>Cart</h1>
+    {% if cart.item_count == 0 %}
+      <p>Your cart is empty.</p>
+    {% else %}
+      <form action="{{ routes.cart_url }}" method="post" novalidate>
+        <table style="width:100%;border-collapse:collapse">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:.5rem;border-bottom:1px solid #eee">Product</th>
+              <th style="text-align:right;padding:.5rem;border-bottom:1px solid #eee">Price</th>
+              <th style="text-align:right;padding:.5rem;border-bottom:1px solid #eee">Qty</th>
+              <th style="text-align:right;padding:.5rem;border-bottom:1px solid #eee">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in cart.items %}
+              <tr>
+                <td style="padding:.5rem;border-bottom:1px solid #f2f2f2">
+                  <a href="{{ item.url }}">{{ item.product.title }}</a>
+                  <div style="color:#666;font-size:.9rem">{{ item.variant.title }}</div>
+                </td>
+                <td style="padding:.5rem;text-align:right;border-bottom:1px solid #f2f2f2">{{ item.final_price | money }}</td>
+                <td style="padding:.5rem;text-align:right;border-bottom:1px solid #f2f2f2">
+                  <input name="updates[]" value="{{ item.quantity }}" type="number" min="0" style="width:64px">
+                </td>
+                <td style="padding:.5rem;text-align:right;border-bottom:1px solid #f2f2f2">{{ item.final_line_price | money }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div style="display:flex;justify-content:flex-end;gap:1rem;margin-top:1rem;align-items:center">
+          <div><strong>Subtotal:</strong> {{ cart.total_price | money }}</div>
+          <button class="btn" name="update" value="Update">Update</button>
+          <button class="btn btn--primary" name="checkout" value="Checkout">Checkout</button>
+        </div>
+      </form>
+    {% endif %}
+  </div>
+</section>

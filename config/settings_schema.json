@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      { "type": "text", "id": "logo_alt", "label": "Logo alt text", "default": "Shop logo" },
+      { "type": "text", "id": "brand_name", "label": "Brand name (fallback)", "default": "Caravan & Sunnah" }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "header_bg", "label": "Header background", "default": "#177245" },
+      { "type": "color", "id": "header_text", "label": "Header text", "default": "#FFFFFF" },
+      { "type": "color", "id": "content_bg", "label": "Content background", "default": "#FFFFFF" },
+      { "type": "color", "id": "body_text", "label": "Body text", "default": "#111111" },
+      { "type": "color", "id": "accent", "label": "Accent (teal)", "default": "#0F766E" },
+      { "type": "color", "id": "footer_bg", "label": "Footer background", "default": "#5B3A1A" },
+      { "type": "color", "id": "footer_text", "label": "Footer text", "default": "#FFFFFF" }
+    ]
+  }
+]

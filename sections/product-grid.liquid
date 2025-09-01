@@ -1,0 +1,29 @@
+{% schema %}
+{
+  "name": "Product grid",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 4, "max": 24, "step": 1, "default": 12 }
+  ],
+  "presets": [{ "name": "Product grid" }]
+}
+{% endschema %}
+
+{% assign collection = collections[section.settings.collection] %}
+<section class="section">
+  <div class="container">
+    {% if collection %}
+      <h2 style="margin:0 0 1rem">{{ collection.title }}</h2>
+      {% paginate collection.products by section.settings.products_per_page %}
+        <div class="grid grid--4">
+          {% for product in paginate.items %}
+            {% render 'product-card', product: product %}
+          {% endfor %}
+        </div>
+        {% render 'pagination', paginate: paginate %}
+      {% endpaginate %}
+    {% else %}
+      <p>Select a collection to show products.</p>
+    {% endif %}
+  </div>
+</section>

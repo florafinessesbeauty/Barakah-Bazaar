@@ -1,0 +1,43 @@
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Sunnah-inspired goods" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Heritage. Honored." },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Staples and scents of the old caravans—offered with integrity and care." },
+    { "type": "url", "id": "primary_link", "label": "Primary link" },
+    { "type": "text", "id": "primary_label", "label": "Primary label", "default": "Shop dates" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary label", "default": "Explore fragrances" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}
+
+<section class="hero">
+  <div class="container" style="width:100%">
+    <div class="hero__content">
+      {% if section.settings.eyebrow != blank %}
+        <p style="letter-spacing:.08em;text-transform:uppercase;color:#666;margin:0 0 .25rem">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      <h1>{{ section.settings.heading }}</h1>
+      {% if section.settings.subtext != blank %}
+        <p style="max-width:56ch;margin:.5rem 0 1rem">{{ section.settings.subtext }}</p>
+      {% endif %}
+      <div class="hero__buttons">
+        {% if section.settings.primary_link and section.settings.primary_label %}
+          <a class="btn btn--primary" href="{{ section.settings.primary_link }}">{{ section.settings.primary_label }}</a>
+        {% endif %}
+        {% if section.settings.secondary_link and section.settings.secondary_label %}
+          <a class="btn btn--ghost" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label }}</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="hero__media">
+      {% if section.settings.image %}
+        <img src="{{ section.settings.image | image_url: width: 1400 }}" alt="" loading="lazy">
+      {% endif %}
+    </div>
+  </div>
+</section>

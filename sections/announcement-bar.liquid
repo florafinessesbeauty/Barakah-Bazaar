@@ -1,0 +1,22 @@
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    { "type": "text", "id": "message", "label": "Message", "default": "Free UK delivery over £50" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "presets": [{ "name": "Announcement bar" }]
+}
+{% endschema %}
+
+{% if section.settings.message != blank %}
+<div class="announcement" style="background: var(--accent); color: #fff">
+  <div class="container">
+    {% if section.settings.link != blank %}
+      <a href="{{ section.settings.link }}" style="color:#fff">{{ section.settings.message }}</a>
+    {% else %}
+      {{ section.settings.message }}
+    {% endif %}
+  </div>
+</div>
+{% endif %}

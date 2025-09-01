@@ -1,0 +1,69 @@
+<section class="product container">
+  <div class="product__media">
+    {% if product.media.size > 0 %}
+      {% for media in product.media %}
+        {{ media | media_tag: image_size: '800x' }}
+      {% endfor %}
+    {% elsif product.featured_image %}
+      <img src="{{ product.featured_image | image_url: width: 1000 }}" alt="{{ product.title | escape }}">
+    {% endif %}  
+
+  </div>
+
+  <div>
+    <h1 class="product__title">{{ product.title }}</h1>
+
+    <div class="price">
+      {% if product.compare_at_price_max > product.price %}
+        <span style="color:#c0392b; margin-right:.35rem">{{ product.price | money }}</span>
+        <s style="color:#777">{{ product.compare_at_price_max | money }}</s>
+      {% else %}
+        <span>{{ product.price | money }}</span>
+      {% endif %}
+    </div>
+
+    {% if product.metafields.custom.heritage_note != blank %}
+      <div style="margin:.75rem 0; padding:.75rem; border:1px dashed #ddd; border-radius:6px; background:#fafafa">
+        <strong>Heritage:</strong>
+        <div style="margin-top:.25rem">{{ product.metafields.custom.heritage_note | newline_to_br }}</div>
+      </div>
+    {% endif %}
+
+    <div style="color:#444; margin:1rem 0">
+      {{ product.description }}
+    </div>
+
+    {% form 'product', product %}
+      {% if product.has_only_default_variant == false %}
+        <div>
+          {% for option in product.options_with_values %}
+            <label for="Option-{{ option.position }}"><strong>{{ option.name }}:</strong></label>
+            <select id="Option-{{ option.position }}" name="options[{{ option.name | escape }}]">
+              {% for value in option.values %}
+                <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+              {% endfor %}
+            </select>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <input type="submit" value="Add to cart">
+    {% endform %}  
+    
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.title }}",
+  "image": "{{ product.featured_image | img_url: 'master' }}",
+  "description": "{{ product.description | strip_html | escape }}",
+  "sku": "{{ product.sku }}",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "{{ shop.currency }}",
+    "price": "{{ product.price | money_without_currency }}",
+    "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"
+  }
+}
+</script>
+  </div>
+</section>

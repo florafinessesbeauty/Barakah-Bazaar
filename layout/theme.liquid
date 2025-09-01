@@ -1,0 +1,36 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+<head>  
+<title>{% if page_title %}{{ page_title }} | {% endif %}Barakah Bazaar</title>
+<meta name="description" content="{{ page_description | escape }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% if page_title %}{{ page_title }} — {% endif %}{{ shop.name }}</title>
+  {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  {{ content_for_header }}
+  <style>
+    :root{
+      --header-bg: {{ settings.header_bg }};
+      --header-text: {{ settings.header_text }};
+      --content-bg: {{ settings.content_bg }};
+      --body-text: {{ settings.body_text }};
+      --accent: {{ settings.accent }};
+      --footer-bg: {{ settings.footer_bg }};
+      --footer-text: {{ settings.footer_text }};
+      --white:#ffffff; --black:#111111;
+    }
+  </style>
+</head>
+<body style="background:var(--content-bg);color:var(--body-text);">
+  <a class="skip-link" href="#main">Skip to content</a>
+  {% section 'header' %}
+  {% section 'announcement-bar' %}
+  <main id="main" role="main">
+    {{ content_for_layout }}
+  </main>
+  {% section 'footer' %}
+  <script>document.documentElement.classList.remove('no-js');</script>
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
+</body>
+</html>
