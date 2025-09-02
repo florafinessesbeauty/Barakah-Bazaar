@@ -1,0 +1,47 @@
+<section class="discount-banner">
+  <div class="discount-banner__content">
+    <span class="discount-banner__text">
+      Use code <strong id="discount-code">{{ section.settings.code }}</strong> for {{ section.settings.offer_text }}
+    </span>
+    <button class="discount-banner__copy" onclick="copyDiscountCode()">Copy Code</button>
+  </div>
+</section>
+
+<script>
+  function copyDiscountCode() {
+    const code = document.getElementById('discount-code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      alert('Discount code copied!');
+    });
+  }
+</script>
+
+<style>
+  .discount-banner {
+    background: var(--color-accent);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+  .discount-banner__copy {
+    background: white;
+    color: var(--color-accent);
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+    cursor: pointer;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Discount Banner",
+  "settings": [
+    { "type": "text", "id": "code", "label": "Discount Code", "default": "BARAKAH10" },
+    { "type": "text", "id": "offer_text", "label": "Offer Text", "default": "10% off your first order" }
+  ],
+  "presets": [
+    { "name": "Discount Banner" }
+  ]
+}
+{% endschema %}
